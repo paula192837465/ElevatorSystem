@@ -1,0 +1,19 @@
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ElevatorSystem.controllers.ElevatorSystemController">
+    <children>
+        <GridPane fx:id="liftShafts" layoutX="10" layoutY="10">
+        </GridPane>
+        <GridPane fx:id="gridPane" alignment="TOP_CENTER" layoutX="400.0" layoutY="39.0" prefHeight="275.0" prefWidth="100.0">
+<!--            <children>-->
+<!--                <Label>Call a lift:</Label>-->
+<!--                <GridPane fx:id="pickupTable"></GridPane>-->
+<!--                <Button alignment="CENTER">Simulate</Button>-->
+<!--            </children>-->
+        </GridPane>
+
+    </children>
+
+</Pane>
