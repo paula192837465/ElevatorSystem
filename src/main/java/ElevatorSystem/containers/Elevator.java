@@ -71,7 +71,7 @@ public class Elevator {
         }
     }
 
-    public void updateFloor() {
+    public void updateFloor() { //todo observable
 
         if (this.whereTo.size()==0)
             this.direction = 0;
@@ -104,9 +104,7 @@ public class Elevator {
                 }
             }
         }
-
         System.out.println(this.ID + " Sorted " +  this.whereTo);
-
     }
 
 }

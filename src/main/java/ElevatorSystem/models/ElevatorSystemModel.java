@@ -17,13 +17,21 @@ public class ElevatorSystemModel {
         for(int i =0; i < this.building.getElevatorsNum(); i++){
             elevators.add(new Elevator(i));
         }
-
     }
 
-    public void pickup(Double floor){
-        pickups.add(floor);
-        System.out.println(pickups);
-        this.manageSystem();
+    public void pickup(Double floor, int tableNum){
+        if(tableNum==-1){
+            pickups.add(floor);
+            System.out.println(pickups);
+            this.manageSystem();
+        }
+        else{
+            for(Elevator elevator : elevators)
+                if(elevator.getID() == tableNum){
+                    elevator.addWhereTo(floor);
+                    break;
+                }
+        }
     }
 
     public Building getBuilding() {
@@ -38,16 +46,15 @@ public class ElevatorSystemModel {
     }
 
     private void sendPickupToElevator(Elevator elevator, Double pickupFloor, int index) {
-        System.out.println("Sending pickup to " + elevator.getID());
-        elevator.addWhereTo(pickupFloor);//kiedy wysyłam do jednej dostają wszystkie
+        elevator.addWhereTo(pickupFloor);
         this.pickups.remove(index);
-        System.out.println("After deleting " + pickups);
     }
 
-    private void makeMove(){
-        for(Elevator elevator : this.elevators)
+    public void makeMove(){
+        for(Elevator elevator : this.elevators){
             elevator.updateFloor();
-
+            System.out.println("Lift " + elevator.getID() + " " + elevator.getCurrentFloor());
+        }
     }
 
     public void manageSystem() {
@@ -57,15 +64,16 @@ public class ElevatorSystemModel {
             for(Elevator elevator : this.elevators){
                 System.out.println("Current lift " + elevator.getID());
                 if(canTakeElevator(elevator, pickups.get(i))){
-                    System.out.println("Current index " + i);
                     sendPickupToElevator(elevator, pickups.get(i), i);
                     i=-1;
                     break;
                 }
-
             }
             this.makeMove();
         }
     }
 
+    public ArrayList<Elevator> getElevators() {
+        return elevators;
+    }
 }

@@ -35,5 +35,16 @@ public class LiftShaftView extends AnchorPane {
 
     public void setBackground(Image regular) {
         this.image = regular;
+        bgImageView.setImage(image);
+    }
+
+    public void makeVisible(){
+        Image lift = new Image("/img/elevator.jpg",70,50,false,true);
+        fgImageView.setImage(lift);
+
+    }
+
+    public void makeInvisible(){
+        fgImageView.setImage(null);
     }
 }
