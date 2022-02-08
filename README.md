@@ -11,5 +11,6 @@ Kiedy wybierzemy piętro na jednej z małych klawiatur znajdujących się pod sz
 
 ## Implementacja:
 Zadany problem postanowiłam rozwiązać przy pomocy Javy z użyciem JavyFX do uzyskania lepszych efektów symulacji. 
+Poniżej przedstawiam poglądowy diagram klas.
 
-![](https://drive.google.com/drive/u/0/my-drive")
+![](https://github.com/paula192837465/ElevatorSystem/blob/master/src/main/resources/img/diagram.png)
