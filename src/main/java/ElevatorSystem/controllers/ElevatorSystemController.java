@@ -9,8 +9,8 @@ import ElevatorSystem.views.LiftShaftView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -19,7 +19,7 @@ import java.util.TimerTask;
 public class ElevatorSystemController {
 
     @FXML
-    Pane pane;
+    AnchorPane pane;
 
     @FXML
     GridPane gridPane;
@@ -40,10 +40,10 @@ public class ElevatorSystemController {
         this.elevatorSystemModel = elevatorSystemModel;
         this.building = elevatorSystemModel.getBuilding();
 
-        //fix pref size of components
+        //fix prefsize and position of components
         liftShafts.setPrefSize(70*building.getElevatorsNum(), 50*building.getFloors());
         pane.setPrefSize(80*building.getElevatorsNum()+200, 50*building.getFloors()+200);
-        gridPane.setLayoutX(75*building.getElevatorsNum());
+        gridPane.setLayoutX(75*building.getElevatorsNum()+15);
         pickupText.setLayoutX(75*building.getElevatorsNum());
 
 
@@ -77,7 +77,7 @@ public class ElevatorSystemController {
             public void run() {
                 simulate();
             }
-        }, 0, 1500);
+        }, 0, 2000);
     }
 
     private void simulate(){
@@ -85,11 +85,13 @@ public class ElevatorSystemController {
         render();
     }
 
+    //odebranie przywołania windy lub wybrania przycisku będąc w środku
     public void pickup(double number, int tableNum){
         this.elevatorSystemModel.pickup(number, tableNum);
         render();
     }
 
+    //renderowanie obrazu poruszających się wind
     private void render() {
         for (Elevator elevator : this.elevatorSystemModel.getElevators()) {
             for (int i = 0; i < building.getFloors(); i++)
@@ -100,5 +102,6 @@ public class ElevatorSystemController {
                 this.floorPerElevatorViews.get(elevator.getID()).get(building.getFloors() - 1 - elevator.getCurrentFloor().intValue()).makeVisible();
 
         }
+
     }
 }

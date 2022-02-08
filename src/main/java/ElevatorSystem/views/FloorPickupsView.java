@@ -30,6 +30,7 @@ public class FloorPickupsView extends GridPane{
         createFloorPickupView();
     }
 
+    //stworzenie klawiatury numerycznej do przywoływania wind
     public void createFloorPickupView(){
         for (int n = 1; n< floorsNum+1; n++) {
             Button button = createNumberButton(n-1);
@@ -60,6 +61,7 @@ public class FloorPickupsView extends GridPane{
         return pickupsButtons;
     }
 
+    //obsługa naciśnięcia danego przycisku na klawiaturze
     private void buttonHandler(ActionEvent e, Double number){
         System.out.println(number);
         this.elevatorSystemController.pickup(number, pickupTableNum);

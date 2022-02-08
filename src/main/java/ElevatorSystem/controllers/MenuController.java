@@ -38,7 +38,8 @@ public class MenuController {
     public void getDataAndStart(){
         String elevatorNum = ElevatorNumField.getText();
         String floorsNum = FloorsNumField.getText();
-        System.out.println("Data " + elevatorNum + " " + floorsNum);
+        if(Integer.parseInt(elevatorNum) <=0 || Integer.parseInt(floorsNum) <=0)
+            throw new IllegalArgumentException("You need to enter a positive numbers in both TextFields");
         menuModel.startSimulation(Integer.parseInt(elevatorNum), Integer.parseInt(floorsNum));
     }
 }

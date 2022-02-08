@@ -21,6 +21,7 @@ public class AppNavigator extends Application {
     public AppNavigator() throws InterruptedException {
     }
 
+    //uruchomienie ekranu menu z wyborem piętra i ilości wind
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -44,6 +45,7 @@ public class AppNavigator extends Application {
         }
     }
 
+    //uruchomienie ekranu symulacji
     public void startSimulation(int elevatorsNum, int floorsNum){
         try{
 

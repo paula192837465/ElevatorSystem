@@ -27,11 +27,13 @@ public class LiftShaftColumnView extends GridPane {
         GridPane.setRowSpan(liftShaftContainer, 1);
     }
 
+    //ustawienie obrazka w tle szybu windy
     public void setShaftImage(Image shaftImage){
         this.shaftImage = shaftImage;
-        updateSlots();
+        updateShafts();
     }
 
+    //stworzenie całego szybu dla konkretnej windy
     public void setLiftShaft(int floors) {
         liftShaftContainer.getChildren().clear();
 
@@ -50,10 +52,11 @@ public class LiftShaftColumnView extends GridPane {
         GridPane.setColumnIndex(liftPickups, 0);
         GridPane.setRowSpan(liftPickups, 1);
 
-        updateSlots();
+        updateShafts();
     }
 
-    private void updateSlots() {
+    //uaktualnienie wyglądu szybu
+    private void updateShafts() {
         if (shafts != null) {
             for (LiftShaftView shaft : shafts) {
                 shaft.setBackground(shaftImage);

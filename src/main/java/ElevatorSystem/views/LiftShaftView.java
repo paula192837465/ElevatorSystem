@@ -14,7 +14,7 @@ public class LiftShaftView extends AnchorPane {
 
     public LiftShaftView() {
 
-        //create background image holder
+        //stworzenie holdera na obrazek w tle (szyb)
         bgImageView = new ImageView();
         this.getChildren().add(bgImageView);
         setTopAnchor(bgImageView, 0.0);
@@ -23,7 +23,7 @@ public class LiftShaftView extends AnchorPane {
         setLeftAnchor(bgImageView, 0.0);
 
 
-        //create foreground image holder
+        //stworzenie holdera na przedni obrazek (windę)
         fgImageView = new ImageView();
         this.getChildren().add(fgImageView);
         setTopAnchor(fgImageView, 0.0);
@@ -33,17 +33,20 @@ public class LiftShaftView extends AnchorPane {
 
     }
 
+    //ustawienie tła komórki w gridzie
     public void setBackground(Image regular) {
         this.image = regular;
         bgImageView.setImage(image);
     }
 
+    //pokazanie obrazka windy
     public void makeVisible(){
         Image lift = new Image("/img/elevator.jpg",70,50,false,true);
         fgImageView.setImage(lift);
 
     }
 
+    //ukrycie obrazka windy
     public void makeInvisible(){
         fgImageView.setImage(null);
     }

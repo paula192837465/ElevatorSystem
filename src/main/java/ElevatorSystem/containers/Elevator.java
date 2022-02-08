@@ -7,17 +7,13 @@ public class Elevator {
 
     private final int ID;
     private Double currentFloor;
-    private Boolean occupied;
-    private Integer MaxWeight;
-    private Integer CurrentWeight;
-    private Integer direction; //todo enum
+    private Direction direction;
     private ArrayList<Double> whereTo = new ArrayList<>();
 
     public Elevator(int id){
         this.ID = id;
         this.currentFloor = 0.0;
-        this.occupied = false;
-        this.direction = 0;
+        this.direction = Direction.STOP;
     }
 
     public int getID() {
@@ -28,20 +24,13 @@ public class Elevator {
         this.currentFloor = currentFloor;
     }
 
-    public void setOccupied(Boolean occupied) {
-        this.occupied = occupied;
-    }
-
+    //dodanie zlecenia do tablicy zleceń windy
     public void addWhereTo(Double floor) {
         if(this.currentFloor == floor.doubleValue())
             return;
         if(!this.whereTo.contains(floor))
             this.whereTo.add(floor);
         System.out.println(this.ID + " " + whereTo);
-    }
-
-    public Boolean getOccupied() {
-        return occupied;
     }
 
     public ArrayList<Double> getWhereTo() {
@@ -52,36 +41,37 @@ public class Elevator {
         return currentFloor;
     }
 
-    public Integer getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
-    public void setDirection(Integer direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
+    //wykonanie kroku w górę/w dół
     private void updateMove(Boolean up){
         if (up){
             this.currentFloor+=0.25;
-            this.direction = +1;
+            this.direction = Direction.UP;
         }
         else{
             this.currentFloor-=0.25;
-            this.direction =-1;
+            this.direction = Direction.DOWN;
         }
     }
 
-    public void updateFloor() { //todo observable
-
+    //mechanizm poruszania się windy - tutaj decyduje gdzie jedzie w następnym kroku symulacji
+    public void updateFloor() {
         if (this.whereTo.size()==0)
-            this.direction = 0;
+            this.direction = Direction.STOP;
         else {
             Collections.sort(this.whereTo);
 
-            if(this.getDirection() > 0) {
+            if(this.getDirection() == Direction.UP) {
                 updateMove(true);
             }
-            else if(this.getDirection() < 0){
+            else if(this.getDirection() == Direction.DOWN){
                 Collections.reverse(this.whereTo);
                 updateMove(false);
             }
@@ -95,16 +85,18 @@ public class Elevator {
                 if(this.whereTo.size()>index){
                     double nextFloor = this.whereTo.get(index);
                     if(nextFloor> this.currentFloor)
-                        this.direction = 1;
+                        this.direction = Direction.UP;
                     else
-                        this.direction =-1;
+                        this.direction = Direction.DOWN;
                 }
                 else if(this.whereTo.size()==index && this.whereTo.size()!=0){
-                    this.direction *= -1;
+                    this.direction = direction.opposite();
                 }
             }
         }
-        System.out.println(this.ID + " Sorted " +  this.whereTo);
+
+        //Wyświetlanie aktualnego stanu danej windy
+        System.out.println("Lift " + this.ID + " on floor " + this.getCurrentFloor() + " Sorted " +  this.whereTo);
     }
 
 }
