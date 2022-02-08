@@ -86,10 +86,7 @@ public class Elevator {
                 updateMove(false);
             }
             else {
-                if (this.whereTo.get(0) > this.currentFloor)
-                    updateMove(true);
-                else
-                    updateMove(false);
+                updateMove(this.whereTo.get(0) > this.currentFloor);
             }
 
             if(this.whereTo.contains(this.currentFloor)){
@@ -98,9 +95,12 @@ public class Elevator {
                 if(this.whereTo.size()>index){
                     double nextFloor = this.whereTo.get(index);
                     if(nextFloor> this.currentFloor)
-                        updateMove(true);
+                        this.direction = 1;
                     else
-                        updateMove(false);
+                        this.direction =-1;
+                }
+                else if(this.whereTo.size()==index && this.whereTo.size()!=0){
+                    this.direction *= -1;
                 }
             }
         }

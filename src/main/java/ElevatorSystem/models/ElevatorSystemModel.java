@@ -11,16 +11,25 @@ public class ElevatorSystemModel {
     private ArrayList<Elevator> elevators =new ArrayList<>(); //todo Observable
     private ArrayList<Double> pickups = new ArrayList<>();
 
+
     public ElevatorSystemModel(Building building)  {
         this.building = building;
 
         for(int i =0; i < this.building.getElevatorsNum(); i++){
             elevators.add(new Elevator(i));
         }
+
     }
 
     public void pickup(Double floor, int tableNum){
+
         if(tableNum==-1){
+            for(Elevator elevator : elevators){
+                if(elevator.getWhereTo().contains(floor)){
+                    this.makeMove();
+                    return;
+                }
+            }
             pickups.add(floor);
             System.out.println(pickups);
             this.manageSystem();
@@ -29,6 +38,7 @@ public class ElevatorSystemModel {
             for(Elevator elevator : elevators)
                 if(elevator.getID() == tableNum){
                     elevator.addWhereTo(floor);
+                    elevator.updateFloor();
                     break;
                 }
         }

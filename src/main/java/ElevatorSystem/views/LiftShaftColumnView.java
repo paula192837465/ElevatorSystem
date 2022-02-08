@@ -6,7 +6,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LiftShaftColumnView extends GridPane {
 
@@ -16,7 +15,7 @@ public class LiftShaftColumnView extends GridPane {
 
     private Image shaftImage;
     private  ElevatorSystemController elevatorSystemController;
-    private List<LiftShaftView> shafts;
+    private ArrayList<LiftShaftView> shafts;
 
     public LiftShaftColumnView(int elevatorNum, ElevatorSystemController elevatorSystemController){
         this.elevatorNum =elevatorNum;
@@ -26,7 +25,6 @@ public class LiftShaftColumnView extends GridPane {
         GridPane.setRowIndex(liftShaftContainer, 0);
         GridPane.setColumnIndex(liftShaftContainer, 0);
         GridPane.setRowSpan(liftShaftContainer, 1);
-
     }
 
     public void setShaftImage(Image shaftImage){
@@ -63,7 +61,7 @@ public class LiftShaftColumnView extends GridPane {
         }
     }
 
-    public List<LiftShaftView> getShafts() {
+    public ArrayList<LiftShaftView> getShafts() {
         return shafts;
     }
 }

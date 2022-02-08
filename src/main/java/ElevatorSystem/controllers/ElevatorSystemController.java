@@ -6,16 +6,15 @@ import ElevatorSystem.models.ElevatorSystemModel;
 import ElevatorSystem.views.FloorPickupsView;
 import ElevatorSystem.views.LiftShaftColumnView;
 import ElevatorSystem.views.LiftShaftView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ElevatorSystemController {
 
@@ -29,16 +28,13 @@ public class ElevatorSystemController {
     GridPane liftShafts;
 
     @FXML
-    Button simulate;
-
-    @FXML
     Label pickupText;
-
 
     private Building building;
     private ElevatorSystemModel elevatorSystemModel;
-    private List<LiftShaftColumnView> liftShaftColumnViews = new ArrayList<>();
-    private ArrayList<List<LiftShaftView>> floorPerElevatorViews = new ArrayList<>();
+    private final ArrayList<LiftShaftColumnView> liftShaftColumnViews = new ArrayList<>();
+    private final ArrayList<ArrayList<LiftShaftView>> floorPerElevatorViews = new ArrayList<>();
+    private Timer clock;
 
     public void init(ElevatorSystemModel elevatorSystemModel) {
         this.elevatorSystemModel = elevatorSystemModel;
@@ -48,11 +44,10 @@ public class ElevatorSystemController {
         liftShafts.setPrefSize(70*building.getElevatorsNum(), 50*building.getFloors());
         pane.setPrefSize(80*building.getElevatorsNum()+200, 50*building.getFloors()+200);
         gridPane.setLayoutX(75*building.getElevatorsNum());
-        simulate.setLayoutX(75*building.getElevatorsNum());
         pickupText.setLayoutX(75*building.getElevatorsNum());
 
 
-        Image shaftBg = new Image("/img/szyb.png", 70, 50, false, true);
+        Image shaftBg = new Image("/img/shaft.png", 70, 50, false, true);
 
         for(int i=0; i< building.getElevatorsNum(); i++){
             //tworzy nową kolumnę
@@ -74,38 +69,36 @@ public class ElevatorSystemController {
         GridPane pickups = new FloorPickupsView(building.getFloors(), -1,this);
         gridPane.add(pickups,0,0);
 
-        simulate.setOnAction(e -> buttonHandler(e));
 
+        //zegar obsuługujący symulację
+        clock = new Timer();
+        clock.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                simulate();
+            }
+        }, 0, 1500);
     }
 
-    private void buttonHandler(ActionEvent e){
+    private void simulate(){
         this.elevatorSystemModel.makeMove();
-        updateSimulation();
+        render();
     }
 
     public void pickup(double number, int tableNum){
         this.elevatorSystemModel.pickup(number, tableNum);
-        updateSimulation();
+        render();
     }
 
-    private void updateSimulation(){
-            for(Elevator elevator : this.elevatorSystemModel.getElevators()){ //todo problem z pojawianiem się
-                for(int i=0;i< building.getFloors();i++){
-                    if ( elevator.getCurrentFloor()%1 ==0 && i !=elevator.getCurrentFloor().intValue() ){
-                        System.out.println("nie git " + i + " " + elevator.getCurrentFloor() + " " + elevator.getID());
-                        this.floorPerElevatorViews.get(elevator.getID()).get(building.getFloors()-1-elevator.getCurrentFloor().intValue()).makeInvisible();
-                    }
-                    else if( i == elevator.getCurrentFloor().intValue() && elevator.getCurrentFloor() % 1 == 0){
-//                        System.out.println("Git " + i + " " + elevator.getCurrentFloor());
-                        this.floorPerElevatorViews.get(elevator.getID()).get(building.getFloors()-1-elevator.getCurrentFloor().intValue()).makeVisible();
-                    }
+    private void render() {
+        for (Elevator elevator : this.elevatorSystemModel.getElevators()) {
+            for (int i = 0; i < building.getFloors(); i++)
+                if (elevator.getCurrentFloor() % 1 == 0 && i != elevator.getCurrentFloor().intValue())
+                    this.floorPerElevatorViews.get(elevator.getID()).get(building.getFloors() - 1 - i).makeInvisible();
 
-//
-                }
+            if (elevator.getCurrentFloor() % 1 == 0)
+                this.floorPerElevatorViews.get(elevator.getID()).get(building.getFloors() - 1 - elevator.getCurrentFloor().intValue()).makeVisible();
 
-
-            }
-
+        }
     }
-
 }

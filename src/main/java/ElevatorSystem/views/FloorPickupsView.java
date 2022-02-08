@@ -15,7 +15,7 @@ public class FloorPickupsView extends GridPane{
     private ElevatorSystemController elevatorSystemController;
     private int pickupTableNum;
 
-    public FloorPickupsView(int floors, int tableNum, ElevatorSystemController elevatorSystemController){ //todo może jakiś servis?
+    public FloorPickupsView(int floors, int tableNum, ElevatorSystemController elevatorSystemController){
 
         this.pickupTableNum = tableNum;
         this.elevatorSystemController =elevatorSystemController;
@@ -50,10 +50,8 @@ public class FloorPickupsView extends GridPane{
         Button button = new Button(text);
         if(pickupTableNum==-1)
             button.setPrefSize(50.0, 50.0);
-
         else
             button.setPrefSize(10.0, 10.0);
-
 
         return button ;
     }

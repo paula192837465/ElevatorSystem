@@ -9,7 +9,6 @@
         </GridPane>
         <GridPane fx:id="gridPane" alignment="TOP_CENTER" layoutX="400.0" layoutY="100" prefHeight="477.0" prefWidth="160.0">
         </GridPane>
-        <Button fx:id="simulate" layoutX="100.0" mnemonicParsing="false" layoutY="0.0" prefHeight="40.0" prefWidth="160.0" text="Simulate" />
         <Label  fx:id="pickupText" alignment="CENTER" layoutX="100.0" layoutY="70.0" prefHeight="40.0" prefWidth="160.0" text="Pick up the floor:"/>
     </children>
 
